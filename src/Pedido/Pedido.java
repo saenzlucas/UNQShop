@@ -1,3 +1,4 @@
+
 package Pedido;
 
 import java.util.List;
@@ -6,19 +7,21 @@ import Catalogo.Item;
 
 public class Pedido {
 	private Estado estado;
-	private List<Item> items;
+	public List<Item> items;
 	
 	public Pedido(List<Item> items) {
 		this.estado = new Borrador (this);
 		this.items = items;
 	}
 	
-	public void addItem () {
-		
+	// Pensar si existe alguna forma mas optima de implementar esto (como agregar items) 
+	public void addItem (Item item) {
+		estado.addItem(item);
 	}
 	
-	public void removeItem () {
-		
+	// Pensar si existe alguna forma mas optima de implementar esto (como remover items) 
+	public void removeItem (Item item) {
+		estado.addItem(item);
 	}
 	
 	public void actualizarEstado () {
@@ -26,6 +29,6 @@ public class Pedido {
 	}
 	
 	public void cancelarPedido () {
-		estado = new Cancelado (this); // Pensar una forma mejor
+		estado = estado.cancelado();
 	}
 }

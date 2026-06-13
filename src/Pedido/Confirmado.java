@@ -6,7 +6,13 @@ public class Confirmado extends Estado {
 		super(pedido);
 	}
 	
+	@Override
 	public Estado nuevoEstado () {
-		return ;
+		return new EnPreparacion (pedido);
+	}
+	
+	@Override
+	public Estado cancelado () {
+		return new Cancelado (pedido);
 	}
 }

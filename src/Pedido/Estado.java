@@ -1,15 +1,30 @@
 package Pedido;
 
+import Catalogo.Item;
+
 public abstract class Estado {
-	private Pedido pedido;
+	
+	public Pedido pedido;
 
 	public Estado(Pedido pedido) {
 		this.pedido = pedido;
 	}
 	
-	public abstract void addItem();
+	// Falta hacer que la excepcion sea propia del programa y no generica
 	
-	public abstract void removeItem();
+	public void addItem(Item item) {
+		throw new UnsupportedOperationException("No se puede agregar el item");
+	}
+
+	public void removeItem(Item item) {
+		throw new UnsupportedOperationException("No se puede remover el item");
+	}
 	
-	public abstract Estado nuevoEstado();
+	public Estado nuevoEstado() {
+		throw new UnsupportedOperationException("No se puede actualizar el estado");
+	}
+	
+	public Estado cancelado () {
+		throw new UnsupportedOperationException("No se puede cancelar el pedido");
+	}
 }

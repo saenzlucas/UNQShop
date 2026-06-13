@@ -6,7 +6,13 @@ public class EnPreparacion extends Estado {
 		super(pedido);
 	}	
 	
+	@Override
 	public Estado nuevoEstado () {
-		return ;
+		return new Enviado (pedido);
+	}
+	
+	@Override
+	public Estado cancelado () {
+		return new Cancelado (pedido);
 	}
 }

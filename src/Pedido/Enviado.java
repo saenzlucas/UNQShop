@@ -6,7 +6,13 @@ public class Enviado extends Estado {
 		super(pedido);
 	}
 	
+	@Override
 	public Estado nuevoEstado () {
-		return ;
+		return new Entregado (pedido);
+	}
+	
+	@Override
+	public Estado cancelado () {
+		return new Cancelado (pedido);
 	}
 }

@@ -6,7 +6,4 @@ public class Entregado extends Estado {
 		super(pedido);
 	}
 	
-	public Estado nuevoEstado () {
-		return ;
-	}
 }
