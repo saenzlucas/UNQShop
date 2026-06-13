@@ -1,5 +1,12 @@
 package Pedido;
 
-public class EnPreparacion {
+public class EnPreparacion extends Estado {
 
+	public EnPreparacion(Pedido pedido) {
+		super(pedido);
+	}	
+	
+	public Estado nuevoEstado () {
+		return ;
+	}
 }

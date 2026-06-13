@@ -1,5 +1,12 @@
 package Pedido;
 
-public class Cancelado {
+public class Cancelado extends Estado {
 
+	public Cancelado(Pedido pedido) {
+		super(pedido);
+	}
+
+	public Estado nuevoEstado () {
+		return ;
+	}
 }
