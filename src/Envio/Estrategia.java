@@ -1,5 +1,5 @@
 package Envio;
 
-public class Estrategia {
+public abstract class Estrategia {
 
 }

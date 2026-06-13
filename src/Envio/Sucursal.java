@@ -1,5 +1,5 @@
 package Envio;
 
-public class Sucursal {
+public class Sucursal extends Estrategia {
 
 }

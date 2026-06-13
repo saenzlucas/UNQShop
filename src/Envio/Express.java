@@ -1,5 +1,5 @@
 package Envio;
 
-public class Express {
+public class Express extends Estrategia {
 
 }

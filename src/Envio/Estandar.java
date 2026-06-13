@@ -1,5 +1,5 @@
 package Envio;
 
-public class Estandar {
+public class Estandar extends Estrategia {
 
 }
