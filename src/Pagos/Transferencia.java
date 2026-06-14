@@ -2,6 +2,7 @@ package Pagos;
 
 public class Transferencia extends Pago {
 	
+	private TransferenciaAPI api;
 	private String alias;
 	private double cbu;
 	
@@ -11,20 +12,10 @@ public class Transferencia extends Pago {
 		this.cbu = cbu;
 	}
 
-	public void validarDatos() {
-
-	}
-
-	public void reservarFondos() {
-
-	}
-
-	public void ejecutarTransferencia() {
-
-	}
-
-	public void notificarResultado() {
-
+	public void procesarPago() {
+		api.verificarIdentificador();
+		api.transferir();
+		api.generarComprobante();
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Tarjeta extends Pago {
 	
+	private TarjetaAPI api;
 	private String emisor;
 	private double numero;
 	private int cvv;
@@ -17,20 +18,11 @@ public class Tarjeta extends Pago {
 		this.vencimiento = vencimiento;
 	}
 
-	public void validarDatos() {
-
-	}
-
-	public void reservarFondos() {
-
-	}
-
-	public void ejecutarTransferencia() {
-
-	}
-
-	public void notificarResultado() {
-
+	public void procesarPago() {
+		api.verificarDatos();
+		api.pedirAutorizacion();
+		api.transferir();
+		api.generarCupon();
 	}
 
 }
