@@ -17,10 +17,13 @@ public class Producto extends Item {
 		return precioFinal;
 	}
 	
-	/*
+	
 	@Override
     public boolean validarProducto() {
-        return true;
+		boolean nombreValido = nombre != null;
+		boolean skuValido = SKU > 0;
+        boolean dinamicosValidos = !getAttributes().containsValue(null);
+        return nombreValido && skuValido && dinamicosValidos;
     }
-    */
+	
 }

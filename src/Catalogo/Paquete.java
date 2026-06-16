@@ -16,10 +16,12 @@ private List<Item> items;
 		return (total * (1-descuento));
 	}
 	
-	/*
 	@Override
     public boolean validarProducto() {
-        return true;
+		boolean nombreValido = nombre != null;        
+        boolean itemsValidos = this.items.stream().allMatch(item -> item.validarProducto());                            
+        boolean dinamicosValidos = !this.getAttributes().containsValue(null);
+        return nombreValido && itemsValidos && dinamicosValidos;
     }
-	*/
+	
 }

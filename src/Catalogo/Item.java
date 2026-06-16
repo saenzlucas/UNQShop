@@ -28,7 +28,12 @@ public abstract class Item {
 		return dinamics.get(attribute);
 	}
 	
+	protected Map<String, Object> getAttributes() {
+        return dinamics;
+    }
+
+	
 	public abstract double getPrecioFinal();	
 	
-	//public abstract boolean validarProducto();	
+	public abstract boolean validarProducto();	
 }
