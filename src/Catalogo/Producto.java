@@ -1,29 +1,49 @@
 package Catalogo;
 
+
+
 public class Producto extends Item {
 
-	private int SKU;
-	private double precioFinal;
-	private String categoria;
+	
+	
+    private Integer sku; 
+    private String categoria;
+    private String marca;
 
-	public Producto(String nombre, String descripcion, double precio, double descuento, int peso, int SKU, String categoria) {
-		super(nombre, descripcion, precio, descuento, peso);
-		this.SKU = SKU;
-		this.precioFinal = precio * (1-descuento);
-		this.categoria = categoria;
-	}
-	
-	public double getPrecioFinal () {
-		return precioFinal;
-	}
-	
-	
-	@Override
-    public boolean validarProducto() {
-		boolean nombreValido = nombre != null;
-		boolean skuValido = SKU > 0;
-        boolean dinamicosValidos = !getAttributes().containsValue(null);
-        return nombreValido && skuValido && dinamicosValidos;
+    
+    
+    public Producto(String nombre, String descripcion, double precioBase, double peso, double descuento, Integer sku, String categoria, String marca) {
+        super(nombre, descripcion, precioBase, peso, descuento);
+        this.sku = sku;
+        this.categoria = categoria;
+        this.marca = marca;
     }
-	
+
+    
+    
+    @Override
+    public double getPrecioFinal() {
+        return this.getPrecioBase() * (1 - this.getDescuento());
+    }
+
+    
+    @Override
+    public boolean validar() {
+        boolean baseValida = super.validar();
+        boolean skuValido = this.sku != null && this.sku > 0;
+        boolean catValida = this.categoria != null;
+        boolean marcaValida = this.marca != null;
+
+        return baseValida && skuValido && catValida && marcaValida;
+    }
+
+    
+    public Integer getSKU() {
+        return this.sku;
+    }
+
+    
+    public String getCategoria() {
+        return this.categoria;
+    }
 }
