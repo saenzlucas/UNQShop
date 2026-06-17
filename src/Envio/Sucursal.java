@@ -1,5 +1,8 @@
 package Envio;
 
-public class Sucursal extends Estrategia {
-
+public class Sucursal extends Envio {
+	@Override
+	public float calcularCosto () {
+		return 0;
+	}
 }
