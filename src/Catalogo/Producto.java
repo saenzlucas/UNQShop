@@ -3,27 +3,28 @@ package Catalogo;
 public class Producto extends Item {
 
 	private int SKU;
-	private double precioFinal;
-	private String categoria;
+	private double finalPrice;
+	private String category;
 
-	public Producto(String nombre, String descripcion, double precio, double descuento, int peso, int SKU, String categoria) {
-		super(nombre, descripcion, precio, descuento, peso);
+	public Producto(String name, String description, double price, double discount, int weight, int SKU, String category) {
+		super(name, description, price, discount, weight);
 		this.SKU = SKU;
-		this.precioFinal = precio * (1-descuento);
-		this.categoria = categoria;
+		this.finalPrice = price * (1-discount);
+		this.category = category;
 	}
 	
-	public double getPrecioFinal () {
-		return precioFinal;
+	public double getFinalPrice () {
+		return finalPrice;
 	}
 	
 	
 	@Override
-    public boolean validarProducto() {
-		boolean nombreValido = nombre != null;
+    public boolean validateProduct() {
+		boolean nameValido = getName () != null;
 		boolean skuValido = SKU > 0;
-        boolean dinamicosValidos = !getAttributes().containsValue(null);
-        return nombreValido && skuValido && dinamicosValidos;
+       // boolean dinamicosValidos = !getAttributes().containsValue(null);
+		//return nameValido && skuValido && dinamicosValidos;
+		return nameValido && skuValido;
     }
 	
 }

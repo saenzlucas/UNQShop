@@ -6,22 +6,24 @@ public class Paquete extends Item {
 
 private List<Item> items;
 	
-	public Paquete(String nombre, String descripcion, double precio, double descuento, int peso, List<Item> items) {
-		super(nombre, descripcion, precio, descuento, peso);
+	public Paquete(String name, String description, double price, double discount, int weight, List<Item> items) {
+		super(name, description, price, discount, weight);
 		this.items = items;
 	}
 	
-	public double getPrecioFinal () {
-		double total = items.stream().mapToDouble(item -> ((Producto) item).getPrecioFinal()).sum();
-		return (total * (1-descuento));
+	// OJO la recursion, no es sobre producto sino sobre item
+	public double getFinalPrice () {
+		double total = items.stream().mapToDouble(item -> ((Producto) item).getFinalPrice()).sum();
+		return (total * (1-getDiscount()));
 	}
 	
 	@Override
-    public boolean validarProducto() {
-		boolean nombreValido = nombre != null;        
-        boolean itemsValidos = this.items.stream().allMatch(item -> item.validarProducto());                            
-        boolean dinamicosValidos = !this.getAttributes().containsValue(null);
-        return nombreValido && itemsValidos && dinamicosValidos;
+    public boolean validateProduct() {
+		boolean nombreValido = getName () != null;        
+        boolean itemsValidos = this.items.stream().allMatch(item -> item.validateProduct());                            
+        //boolean dinamicosValidos = !this.getAttributes().containsValue(null);
+        //return nombreValido && itemsValidos && dinamicosValidos;
+        return nombreValido && itemsValidos;
     }
 	
 }
