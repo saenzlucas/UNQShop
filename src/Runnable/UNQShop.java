@@ -12,9 +12,9 @@ import Pedido.Pedido;
 public class UNQShop {
 	public static void main(String[] args) {
 		
-		Producto alfajor = new Producto ("Havanna", "Playa Grande", 2000, 0, 90, 1, "Alimento");
-		Producto snack = new Producto ("Doritos", "Sabor Queso", 3500, 0, 45, 2, "Alimento");
-		Producto gaseosa = new Producto ("Coca-Cola", "Original", 1500, 0, 500, 3, "Alimento");
+		Producto alfajor = new Producto ("Havanna", "Playa Grande", 2000, 0, 5, 90, 1, "Alimento");
+		Producto snack = new Producto ("Doritos", "Sabor Queso", 3500, 0, 10, 45, 2, "Alimento");
+		Producto gaseosa = new Producto ("Coca-Cola", "Original", 1500, 0, 3, 500, 3, "Alimento");
 		
 		snack.addAttribute("kcal", 350);
 		
@@ -23,18 +23,28 @@ public class UNQShop {
 		products.add(snack);
 		products.add(gaseosa);
 		
+		Paquete bajon = new Paquete ("Combo Bajon", "Alfajor + Snack + Bebida", 7000, 0.15, 635, products);		
 		
-		Paquete bajon = new Paquete ("Combo Bajon", "Alfajor + Snack + Bebida", 7000, 0.15, 635, products);
+		Pedido order = new Pedido (new BilleteraVirtual(15000));
 		
-		Pedido order = new Pedido (products, new BilleteraVirtual(15000));
 		
-		System.out.println (order.getItems());
-		System.out.println (order.getPayment());
+		order.addItem(bajon);
+		order.addItem(bajon);
 		
+		order.updateState();
+		
+		System.out.println (gaseosa.getStock());
+		System.out.println (snack.getStock());
 		order.cancel();
 		
-		System.out.println (bajon.getFinalPrice());
-		System.out.println (snack.getAttribute("kcal"));
+		System.out.println (snack.getStock());
+		//System.out.println (order.getTotalPrice());
+		//System.out.println (order.getPayment());
+		
+		//order.cancel();
+		
+		//System.out.println (bajon.getFinalPrice());
+		//System.out.println (snack.getAttribute("kcal"));
 		
 	}
 }

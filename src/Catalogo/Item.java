@@ -36,26 +36,32 @@ public abstract class Item {
 	public double getDiscount () {
 		return discount;
 	}
-	
-	public Map<String, Object> getDinamics () {
-		return dinamics;
-	}
 
-	public void addAttribute (String attribute, Object data) {
-		dinamics.put(attribute, data);
-	}
-	
 	public Object getAttribute (String attribute) {
 		return dinamics.get(attribute);
 	}
 	
+	public void addAttribute (String attribute, Object data) {
+		dinamics.put(attribute, data);
+	}
+	
 	public boolean validateItem () {
-		boolean validName = getName () != null;
-		boolean validDinamics =  getDinamics().values().stream().allMatch(value -> value != null);
+		boolean validName = name != null;
+		boolean validDinamics =  dinamics.values().stream().allMatch(value -> value != null);
 		return validName && validDinamics;
 	}
 	
 	public abstract boolean validateProduct ();
 	
-	public abstract double getFinalPrice ();	
+	public abstract double getFinalPrice ();
+	
+	public abstract boolean inStock();
+	
+	public abstract int getStock();
+	
+	public abstract void increaseStock(int amount);
+	
+	public abstract void reduceStock(int amount);
+	
+	public abstract void setStock(int stock);
 }

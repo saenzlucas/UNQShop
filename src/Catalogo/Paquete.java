@@ -11,6 +11,7 @@ private List<Item> items;
 		this.items = items;
 	}
 	
+	@Override
 	public double getFinalPrice () {
 		double total = items.stream().mapToDouble(Item::getFinalPrice).sum();
 		return (total * (1-getDiscount()));
@@ -21,4 +22,29 @@ private List<Item> items;
         boolean validItems = items.stream().allMatch(item -> item.validateProduct());                            
         return validateItem() && validItems;
     }
+	
+	@Override
+	public boolean inStock() {
+		return getStock() > 0;
+	}
+	
+	@Override
+	public int getStock() {
+		return items.stream().mapToInt(Item::getStock).min().orElse(0);
+	}
+	
+	@Override
+	public void increaseStock (int amount) {
+		items.forEach(item -> item.increaseStock(amount));
+	}
+	
+	@Override
+	public void reduceStock (int amount) {
+		items.forEach(item -> item.reduceStock(amount));
+	}
+	
+	@Override
+	public void setStock(int stock) {
+		throw new UnsupportedOperationException("No se puede usar setStock en un Paquete. Use increaseStock o reduceStock."); // Armar una excepcion propia del programa
+	}
 }

@@ -1,7 +1,9 @@
 
 package Pedido;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Catalogo.Item;
 import Notificaciones.Email;
@@ -12,18 +14,19 @@ import Pagos.Pago;
 
 public class Pedido {
 	private Estado state;
+	private Estado oldState;
 	private Pago payment;
-	private List<Item> items;
+	private Map<Item, Integer> items;
 	private List<Notificacion> notifications;
 	
-	public Pedido(List<Item> items, Pago payment) {
-		this.items = items;
+	public Pedido(Pago payment) {
 		this.payment = payment;
+		this.items = new HashMap<>();
 		this.state = new Borrador (this);
 		this.notifications = List.of(new Email(), new Factura(), new Fidelizacion());
 	}
 	
-	public List<Item> getItems() { // Capaz no hace falta esto
+	public Map<Item, Integer> getItems() {
 		return items;
 	}
 
@@ -32,7 +35,7 @@ public class Pedido {
 	}
 	
 	public double getTotalPrice () {
-		return this.items.stream().mapToDouble(Item::getFinalPrice).sum();
+		return items.entrySet().stream().mapToDouble(entry -> entry.getKey().getFinalPrice() * entry.getValue()).sum();
 	}
 
 	public void addItem (Item item) {
@@ -52,12 +55,15 @@ public class Pedido {
 	}
 	
 	public void updateState () {
-		notifications.forEach(notification -> notification.shoutout(this, state, state.newState())); // Ver si se puede mejorar
+		oldState = state;
 		state = state.newState();
+		notifications.forEach(notification -> notification.shoutout(this, oldState, state)); // Ver si se puede mejorar
+		
 	}
 	
 	public void cancel () {
-		notifications.forEach(notification -> notification.shoutout(this, state, state.cancelled())); // Ver si se puede mejorar
+		oldState = state;
 		state = state.cancelled();
+		notifications.forEach(notification -> notification.shoutout(this, oldState, state)); // Ver si se puede mejorar
 	}
 }

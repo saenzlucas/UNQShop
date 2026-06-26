@@ -4,27 +4,31 @@ import Catalogo.Item;
 
 public class Borrador extends Estado {
 
-	public Borrador (Pedido order) {
+	public Borrador(Pedido order) {
 		super(order);
 	}
-	
+
 	@Override
 	public void addItem(Item item) {
-		order.getItems().add(item);
+		order.getItems().merge(item, 1, (oldValue, newValue) -> oldValue + 1);
 	}
 
 	@Override
 	public void removeItem(Item item) {
-		order.getItems().remove(item);
+		order.getItems().computeIfPresent(item, (key, value) -> value > 1 ? value - 1 : null);
 	}
-	
+
 	@Override
-	public Estado newState () {
-		return new Confirmado (order);
+	public Estado newState() {
+		if (order.getItems().entrySet().stream().anyMatch(entry -> entry.getKey().getStock() < entry.getValue())) {
+			throw new IllegalStateException("Algun producto de tu carrito no tiene stock"); // Armar una excepcion propia del programa
+		}
+		order.getItems().forEach((item, cantidad) -> item.reduceStock(cantidad));
+		return new Confirmado(order);
 	}
-	
+
 	@Override
-	public Estado cancelled () {
-		return new Cancelado (order);
+	public Estado cancelled() {
+		return new Cancelado(order);
 	}
 }

@@ -13,6 +13,9 @@ public class EnPreparacion extends Estado {
 	
 	@Override
 	public Estado cancelled () {
+		order.getPayment().accredit(order.getTotalPrice());
+		//order.getPayment().accredit(costoEnvio); Reembolso del envio
+		order.getItems().forEach((item, cantidad) -> item.increaseStock(cantidad));
 		return new Cancelado (order);
 	}
 }
