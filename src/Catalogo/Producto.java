@@ -15,6 +15,10 @@ public class Producto extends Item {
 		this.category = category;
 	}
 	
+	public String getCategory() {
+		return category;
+	}
+
 	@Override
 	public double getFinalPrice () {
 		return finalPrice;
@@ -25,6 +29,11 @@ public class Producto extends Item {
 		boolean validSku = sku != 0;
 		return validateItem() && validSku;
     }
+	
+	@Override 
+	public boolean isCategory (String category) {
+		return getCategory().equalsIgnoreCase(category);
+	}
 	
 	@Override
 	public boolean inStock() {

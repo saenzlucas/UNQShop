@@ -23,6 +23,12 @@ private List<Item> items;
         return validateItem() && validItems;
     }
 	
+	@Override 
+	public boolean isCategory (String category) {
+		return items.stream().anyMatch(item -> item.isCategory(category));
+	}
+	
+	
 	@Override
 	public boolean inStock() {
 		return getStock() > 0;

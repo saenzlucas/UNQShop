@@ -6,8 +6,7 @@ public class Transferencia extends Pago {
 	private String alias;
 	private double cbu;
 	
-	public Transferencia(double funds, String alias, double cbu) {
-		super(funds);
+	public Transferencia(String alias, double cbu) {
 		this.alias = alias;
 		this.cbu = cbu;
 	}
@@ -15,7 +14,7 @@ public class Transferencia extends Pago {
 	public void processPayment() {
 		api.verifyIdentifier();
 		api.transfer();;
-		api.generateReceipt();;
+		api.generateReceipt(cbu);
 	}
 
 }

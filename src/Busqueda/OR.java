@@ -1,7 +1,7 @@
 package Busqueda;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Catalogo.Item;
 
@@ -15,7 +15,6 @@ public class OR implements Criterio {
 
 	@Override
 	public List<Item> filter (List<Item> catalog) {
-		//return this.criteria.stream().anyMatch(criterio -> criterio.satisface(item));
-		return new ArrayList <> ();
+		return criteria.stream().flatMap(criterio -> criterio.filter(catalog).stream()).distinct().collect(Collectors.toList());
 	}
 }

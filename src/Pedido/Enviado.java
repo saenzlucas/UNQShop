@@ -1,5 +1,7 @@
 package Pedido;
 
+import Misc.NotaDeCredito;
+
 public class Enviado extends Estado {
 
 	public Enviado (Pedido order) {
@@ -13,7 +15,8 @@ public class Enviado extends Estado {
 	
 	@Override
 	public Estado cancelled () {
-		order.getPayment().accredit(order.getTotalPrice());
+		NotaDeCredito creditNote = new NotaDeCredito ("Lucas Saenz (46282416)", order.getTotalPrice(), 0);
+		creditNote.register();
 		return new Cancelado (order);
 	}
 }

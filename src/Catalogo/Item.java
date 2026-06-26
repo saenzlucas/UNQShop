@@ -55,6 +55,8 @@ public abstract class Item {
 	
 	public abstract double getFinalPrice ();
 	
+	public abstract boolean isCategory(String category);
+	
 	public abstract boolean inStock();
 	
 	public abstract int getStock();

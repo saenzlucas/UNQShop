@@ -7,5 +7,5 @@ import Catalogo.Item;
 public interface Criterio {
 	
 	List<Item> filter (List<Item> catalog);
-	
+
 }

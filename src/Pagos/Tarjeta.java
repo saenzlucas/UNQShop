@@ -1,6 +1,6 @@
 package Pagos;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Tarjeta extends Pago {
 	
@@ -8,10 +8,9 @@ public class Tarjeta extends Pago {
 	private String issuer;
 	private double number;
 	private int cvv;
-	private Date expiration;
+	private LocalDate expiration;
 	
-	public Tarjeta(double funds, String issuer, double number, int cvv, Date expiration) {
-		super(funds);
+	public Tarjeta(String issuer, double number, int cvv, LocalDate expiration) {
 		this.issuer = issuer;
 		this.number = number;
 		this.cvv = cvv;

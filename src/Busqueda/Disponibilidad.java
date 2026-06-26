@@ -1,7 +1,7 @@
 package Busqueda;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Catalogo.Item;
 
@@ -9,8 +9,7 @@ public class Disponibilidad implements Criterio {
 
 	@Override
 	public List<Item> filter(List<Item> catalog) {
-		 //return this.depositos.stream().anyMatch(deposito -> deposito.tieneStock(item)); [Tiene que devolver la lista, no un booleano]
-		return new ArrayList <> ();
+		return catalog.stream().filter(item -> item.inStock()).collect(Collectors.toList());
 	}
 	
 }

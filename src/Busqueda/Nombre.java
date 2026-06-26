@@ -1,7 +1,7 @@
 package Busqueda;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Catalogo.Item;
 
@@ -15,9 +15,7 @@ public class Nombre implements Criterio {
 
 	@Override
 	public List<Item> filter(List<Item> catalog) {
-		 //se pasan ambos strings a minusculas asi no se tienen en cuenta mayusculas y minusculas.
-    	// return item.getname().toLowerCase().contains(this.textoABuscar.toLowerCase()); [Tiene que devolver la lista, no un booleano]
-		return new ArrayList <> ();
+		return catalog.stream().filter(item -> item.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
 	}
-	
+
 }

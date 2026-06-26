@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import Catalogo.Item;
+import Envio.Envio;
 import Notificaciones.Email;
 import Notificaciones.Factura;
 import Notificaciones.Fidelizacion;
@@ -15,12 +16,14 @@ import Pagos.Pago;
 public class Pedido {
 	private Estado state;
 	private Estado oldState;
+	private Envio shipment;
 	private Pago payment;
 	private Map<Item, Integer> items;
 	private List<Notificacion> notifications;
 	
-	public Pedido(Pago payment) {
+	public Pedido(Pago payment, Envio shipment) {
 		this.payment = payment;
+		this.shipment = shipment;
 		this.items = new HashMap<>();
 		this.state = new Borrador (this);
 		this.notifications = List.of(new Email(), new Factura(), new Fidelizacion());
@@ -34,6 +37,10 @@ public class Pedido {
 		return payment;
 	}
 	
+	public Envio getShipment() {
+		return shipment;
+	}
+
 	public double getTotalPrice () {
 		return items.entrySet().stream().mapToDouble(entry -> entry.getKey().getFinalPrice() * entry.getValue()).sum();
 	}
