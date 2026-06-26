@@ -1,15 +1,16 @@
 package Envio;
 
-public class Express extends Envio {
+public class Express implements Envio {
 
-	private float precio;
+	private float price;
 	
-	public Express(float precio) {
-		this.precio = precio;
+	public Express(float price) {
+		this.price = price;
 	}
 
 	@Override
-	public float calcularCosto () {
-		return EnvioExpress.calcularCosto(precio);
+	public float calculateCost () {
+		return 0;
+		//return EnvioExpress.calcularCosto(price);
 	}
 }

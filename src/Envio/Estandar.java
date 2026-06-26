@@ -1,17 +1,20 @@
 package Envio;
 
-public class Estandar extends Envio {
+import Misc.Direccion;
+
+public class Estandar implements Envio {
 	
-	private Direccion direccion;
-	private float peso;
+	private Direccion address;
+	private float weight;
 	
-	public Estandar(Direccion direccion, float peso) {
-		this.direccion = direccion;
-		this.peso = peso;
+	public Estandar(Direccion address, float weight) {
+		this.address = address;
+		this.weight = weight;
 	}
 
 	@Override
-	public float calcularCosto () {
-		return CorreoArgentina.estimarEnvio(peso, direccion);
+	public float calculateCost () {
+		return 0;
+		//return CorreoArgentina.estimarEnvio(weight, address);
 	}
 }
