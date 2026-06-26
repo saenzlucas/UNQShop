@@ -2,10 +2,10 @@ package Pagos;
 
 public interface TransferenciaAPI {
 	
-	boolean verificarIdentificador ();
+	boolean verifyIdentifier ();
 	
-	void transferir ();
+	void transfer ();
 	
-	void generarComprobante ();
+	void generateReceipt ();
 
 }

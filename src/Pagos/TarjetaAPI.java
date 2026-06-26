@@ -2,12 +2,12 @@ package Pagos;
 
 public interface TarjetaAPI {
 
-	boolean verificarDatos ();
+	boolean verifyData ();
 	
-	void pedirAutorizacion ();
+	void requestAuthorization ();
 	
-	void transferir ();
+	void transfer ();
 	
-	void generarCupon ();
+	void generateCoupon ();
 	
 }

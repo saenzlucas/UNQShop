@@ -2,12 +2,12 @@ package Pagos;
 
 public interface BilleteraVirtualAPI {
 
-	boolean verificarSaldo ();
+	boolean checkBalance ();
 	
-	void bloquearSaldo ();
+	void blockBalance ();
 	 
-	void acreditar ();
+	void accredit ();
 	
-	void notificar ();
+	void inform ();
 	
 }

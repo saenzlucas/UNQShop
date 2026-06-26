@@ -5,24 +5,24 @@ import java.util.Date;
 public class Tarjeta extends Pago {
 	
 	private TarjetaAPI api;
-	private String emisor;
-	private double numero;
+	private String issuer;
+	private double number;
 	private int cvv;
-	private Date vencimiento;
+	private Date expiration;
 	
-	public Tarjeta(double fondos, String emisor, double numero, int cvv, Date vencimiento) {
-		super(fondos);
-		this.emisor = emisor;
-		this.numero = numero;
+	public Tarjeta(double funds, String issuer, double number, int cvv, Date expiration) {
+		super(funds);
+		this.issuer = issuer;
+		this.number = number;
 		this.cvv = cvv;
-		this.vencimiento = vencimiento;
+		this.expiration = expiration;
 	}
 
-	public void procesarPago() {
-		api.verificarDatos();
-		api.pedirAutorizacion();
-		api.transferir();
-		api.generarCupon();
+	public void processPayment() {
+		api.verifyData();
+		api.requestAuthorization();;
+		api.transfer();;
+		api.generateCoupon();
 	}
 
 }

@@ -2,20 +2,20 @@ package Pagos;
 
 public abstract class Pago {
 	
-	private double fondos;
+	private double funds;
 	
-	public Pago(double fondos) {
-		this.fondos = fondos;
+	public Pago(double funds) {
+		this.funds = funds;
 	}
 	
-	public void acreditar (double cantidad) {
-		fondos = fondos + cantidad;
+	public void accredit (double amount) {
+		funds = funds + amount;
 	}
 	
-	public void debitar (double cantidad) {
-		fondos = fondos - cantidad;
+	public void debit (double amount) {
+		funds = funds - amount;
 	}
 
-	public abstract void procesarPago ();
+	public abstract void processPayment ();
 	
 }

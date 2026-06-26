@@ -6,16 +6,16 @@ public class Transferencia extends Pago {
 	private String alias;
 	private double cbu;
 	
-	public Transferencia(double fondos, String alias, double cbu) {
-		super(fondos);
+	public Transferencia(double funds, String alias, double cbu) {
+		super(funds);
 		this.alias = alias;
 		this.cbu = cbu;
 	}
 
-	public void procesarPago() {
-		api.verificarIdentificador();
-		api.transferir();
-		api.generarComprobante();
+	public void processPayment() {
+		api.verifyIdentifier();
+		api.transfer();;
+		api.generateReceipt();;
 	}
 
 }
