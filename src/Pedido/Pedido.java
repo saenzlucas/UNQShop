@@ -4,31 +4,45 @@ package Pedido;
 import java.util.List;
 
 import Catalogo.Item;
+import Notificaciones.Notificacion;
 
 public class Pedido {
-	private Estado estado;
-	public List<Item> items;
+	private Estado state;
+	private List<Item> items;
+	private List<Notificacion> notifications;
 	
 	public Pedido(List<Item> items) {
-		this.estado = new Borrador (this);
+		this.state = new Borrador (this);
 		this.items = items;
 	}
 	
+	public List<Item> getItems() {
+		return items;
+	}
+
 	// Pensar si existe alguna forma mas optima de implementar esto (como agregar items) 
 	public void addItem (Item item) {
-		estado.addItem(item);
+		state.addItem(item);
 	}
 	
 	// Pensar si existe alguna forma mas optima de implementar esto (como remover items) 
 	public void removeItem (Item item) {
-		estado.addItem(item);
+		state.removeItem(item);
 	}
 	
-	public void actualizarEstado () {
-		estado = estado.nuevoEstado();
+	public void addNotification (Notificacion notification) {
+		notifications.add(notification);
 	}
 	
-	public void cancelarPedido () {
-		estado = estado.cancelado();
+	public void removeNotification (Notificacion notification) {
+		notifications.remove(notification);
+	}
+	
+	public void updateState () {
+		state = state.newState();
+	}
+	
+	public void cancelOrder () {
+		state = state.cancelled();
 	}
 }

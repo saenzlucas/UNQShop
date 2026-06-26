@@ -4,29 +4,29 @@ import Catalogo.Item;
 
 public class Borrador extends Estado {
 
-	public Borrador(Pedido pedido) {
-		super(pedido);
+	public Borrador (Pedido order) {
+		super(order);
 	}
 	
 	// Pensar si existe alguna forma mas optima de implementar esto (como agregar items) 
 	@Override
 	public void addItem(Item item) {
-		pedido.items.add(item);
+		order.getItems().add(item);
 	}
 
 	// Pensar si existe alguna forma mas optima de implementar esto (como remover items) 
 	@Override
 	public void removeItem(Item item) {
-		pedido.items.remove(item);
+		order.getItems().remove(item);
 	}
 	
 	@Override
-	public Estado nuevoEstado () {
-		return new Confirmado (pedido);
+	public Estado newState () {
+		return new Confirmado (order);
 	}
 	
 	@Override
-	public Estado cancelado () {
-		return new Cancelado (pedido);
+	public Estado cancelled () {
+		return new Cancelado (order);
 	}
 }

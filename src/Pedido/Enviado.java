@@ -2,17 +2,17 @@ package Pedido;
 
 public class Enviado extends Estado {
 
-	public Enviado(Pedido pedido) {
-		super(pedido);
+	public Enviado (Pedido order) {
+		super(order);
 	}
 	
 	@Override
-	public Estado nuevoEstado () {
-		return new Entregado (pedido);
+	public Estado newState () {
+		return new Entregado (order);
 	}
 	
 	@Override
-	public Estado cancelado () {
-		return new Cancelado (pedido);
+	public Estado cancelled () {
+		return new Cancelado (order);
 	}
 }

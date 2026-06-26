@@ -2,17 +2,17 @@ package Pedido;
 
 public class EnPreparacion extends Estado {
 
-	public EnPreparacion(Pedido pedido) {
-		super(pedido);
+	public EnPreparacion (Pedido order) {
+		super(order);
 	}	
 	
 	@Override
-	public Estado nuevoEstado () {
-		return new Enviado (pedido);
+	public Estado newState () {
+		return new Enviado (order);
 	}
 	
 	@Override
-	public Estado cancelado () {
-		return new Cancelado (pedido);
+	public Estado cancelled () {
+		return new Cancelado (order);
 	}
 }

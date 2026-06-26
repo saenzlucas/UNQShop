@@ -2,17 +2,17 @@ package Pedido;
 
 public class Confirmado extends Estado {
 
-	public Confirmado(Pedido pedido) {
+	public Confirmado (Pedido pedido) {
 		super(pedido);
 	}
 	
 	@Override
-	public Estado nuevoEstado () {
-		return new EnPreparacion (pedido);
+	public Estado newState () {
+		return new EnPreparacion (order);
 	}
 	
 	@Override
-	public Estado cancelado () {
-		return new Cancelado (pedido);
+	public Estado cancelled () {
+		return new Cancelado (order);
 	}
 }
