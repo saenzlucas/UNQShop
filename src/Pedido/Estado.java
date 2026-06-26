@@ -1,30 +1,29 @@
 package Pedido;
 
 import Catalogo.Item;
+import Exceptions.InvalidStateActionException;
 
 public abstract class Estado {
 	
 	public Pedido order;
 
-	public Estado (Pedido pedido) {
+	public Estado (Pedido order) {
 		this.order = order;
 	}
 	
-	// Falta hacer que la excepcion sea propia del programa y no generica
-	
 	public void addItem (Item item) {
-		throw new UnsupportedOperationException("No se puede agregar el item");
+		throw new InvalidStateActionException();
 	}
 
 	public void removeItem (Item item) {
-		throw new UnsupportedOperationException("No se puede remover el item");
+		throw new InvalidStateActionException();
 	}
 	
 	public Estado newState () {
-		throw new UnsupportedOperationException("No se puede actualizar el estado");
+		throw new InvalidStateActionException();
 	}
 	
 	public Estado cancelled () {
-		throw new UnsupportedOperationException("No se puede cancelar el pedido");
+		throw new InvalidStateActionException();
 	}
 }

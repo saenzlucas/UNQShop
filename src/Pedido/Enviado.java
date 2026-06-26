@@ -13,6 +13,7 @@ public class Enviado extends Estado {
 	
 	@Override
 	public Estado cancelled () {
+		order.getPayment().accredit(order.getTotalPrice());
 		return new Cancelado (order);
 	}
 }

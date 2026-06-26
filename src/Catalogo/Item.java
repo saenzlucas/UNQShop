@@ -12,7 +12,7 @@ public abstract class Item {
 	private int weight;
 	private Map<String, Object> dinamics;
 	
-	public Item(String name, String description, double price, double discount, int weight) {
+	public Item (String name, String description, double price, double discount, int weight) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
@@ -21,20 +21,24 @@ public abstract class Item {
 		this.dinamics = new HashMap<>();
 	}
 	
-	public String getName() {
+	public String getName () {
 		return name;
 	}
 
-	public String getDescription() {
+	public String getDescription () {
 		return description;
 	}
 
-	public double getPrice() {
+	public double getPrice () {
 		return price;
 	}
 
-	public double getDiscount() {
+	public double getDiscount () {
 		return discount;
+	}
+	
+	public Map<String, Object> getDinamics () {
+		return dinamics;
 	}
 
 	public void addAttribute (String attribute, Object data) {
@@ -45,7 +49,13 @@ public abstract class Item {
 		return dinamics.get(attribute);
 	}
 	
-	public abstract double getFinalPrice();	
+	public boolean validateItem () {
+		boolean validName = getName () != null;
+		boolean validDinamics =  getDinamics().values().stream().allMatch(value -> value != null);
+		return validName && validDinamics;
+	}
 	
-	public abstract boolean validateProduct();	
+	public abstract boolean validateProduct ();
+	
+	public abstract double getFinalPrice ();	
 }
