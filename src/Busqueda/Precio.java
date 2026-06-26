@@ -7,15 +7,15 @@ import Catalogo.Item;
 
 public class Precio implements Criterio {
 
-	private double precioMax;
+	private double maxPrice;
 	
-	public Precio(double precioMax) {
-		this.precioMax = precioMax;
+	public Precio(double maxPrice) {
+		this.maxPrice = maxPrice;
 	}
 
 	@Override
-	public List<Item> filtrar(List<Item> catalogo) {
-		// return item.getPrecioBase() <= this.precioMax; [Tiene que devolver la lista, no un booleano]
+	public List<Item> filter(List<Item> catalog) {
+		// return item.getPrecioBase() <= this.maxPrice; [Tiene que devolver la lista, no un booleano]
 		return new ArrayList <> ();
 	}
 	

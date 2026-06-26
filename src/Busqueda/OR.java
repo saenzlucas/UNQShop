@@ -7,15 +7,15 @@ import Catalogo.Item;
 
 public class OR implements Criterio {
 	
-	private List<Criterio> criterios;
+	private List<Criterio> criteria;
 	
-	public OR (List<Criterio> criterios) {
-		this.criterios = criterios;
+	public OR (List<Criterio> criteria) {
+		this.criteria = criteria;
 	}
 
 	@Override
-	public List<Item> filtrar (List<Item> catalogo) {
-		//return this.criterios.stream().anyMatch(criterio -> criterio.satisface(item));
+	public List<Item> filter (List<Item> catalog) {
+		//return this.criteria.stream().anyMatch(criterio -> criterio.satisface(item));
 		return new ArrayList <> ();
 	}
 }

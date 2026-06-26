@@ -7,14 +7,14 @@ import Catalogo.Item;
 
 public class NOT implements Criterio {
 	
-	private Criterio criterio;
+	private Criterio criterion;
 
-	public NOT (Criterio criterio) {
-		this.criterio = criterio;
+	public NOT (Criterio criterion) {
+		this.criterion = criterion;
 	}
 
 	@Override
-	public List<Item> filtrar (List<Item> catalogo) {
+	public List<Item> filter (List<Item> catalog) {
 		 //return !this.criterioEnvuelto.satisface(item); [Tiene que devolver la lista, no un booleano]
 		return new ArrayList <> ();
 	}

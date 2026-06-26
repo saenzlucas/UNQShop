@@ -7,15 +7,15 @@ import Catalogo.Item;
 
 public class AND implements Criterio {
 	
-	private List<Criterio> criterios;
+	private List<Criterio> criteria;
 
-	public AND (List<Criterio> criterios) {
-		this.criterios = criterios;
+	public AND (List<Criterio> criteria) {
+		this.criteria = criteria;
 	}
 
 	@Override
-	public List<Item> filtrar (List<Item> catalogo) {
-		//return this.criterios.stream().allMatch(criterio -> criterio.satisface(item));  [Tiene que devolver la lista, no un booleano]
+	public List<Item> filter (List<Item> catalog) {
+		//return this.criteria.stream().allMatch(criterio -> criterio.satisface(item));  [Tiene que devolver la lista, no un booleano]
 		return new ArrayList <> ();
 	}
 }

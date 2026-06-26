@@ -6,6 +6,6 @@ import Catalogo.Item;
 
 public interface Criterio {
 	
-	List<Item> filtrar (List<Item> catalogo);
+	List<Item> filter (List<Item> catalog);
 	
 }
