@@ -1,3 +1,3 @@
 <p align="center">
-<img width="435" height="100" alt="UNQShop" src="https://github.com/user-attachments/assets/3c907366-4af8-4117-aab5-56f79630d44c" />
+<img width="435" height="100" alt="UNQShop2" src="https://github.com/user-attachments/assets/bfbdbf90-2243-4428-bb30-9c1a1cfc0bd1" />
 </p>
