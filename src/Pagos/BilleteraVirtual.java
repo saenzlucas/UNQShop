@@ -4,6 +4,10 @@ public class BilleteraVirtual extends Pago {
 
 	private BilleteraVirtualAPI api;
 
+	public BilleteraVirtual(BilleteraVirtualAPI api) {
+		this.api = api;
+	}
+
 	@Override
 	public void validateData() {
 		api.checkBalance();

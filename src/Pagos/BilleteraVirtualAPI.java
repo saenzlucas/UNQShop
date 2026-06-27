@@ -2,7 +2,7 @@ package Pagos;
 
 public interface BilleteraVirtualAPI {
 
-	void checkBalance ();
+	boolean checkBalance ();
 	
 	void blockBalance ();
 	 

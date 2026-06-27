@@ -2,6 +2,8 @@ package Catalogo;
 
 import java.util.List;
 
+import Exceptions.StockUnchangeableException;
+
 public class Paquete extends Item {
 
 private List<Item> items;
@@ -51,6 +53,6 @@ private List<Item> items;
 	
 	@Override
 	public void setStock(int stock) {
-		throw new UnsupportedOperationException("No se puede usar setStock en un Paquete. Use increaseStock o reduceStock."); // Armar una excepcion propia del programa
+		throw new StockUnchangeableException ();
 	}
 }

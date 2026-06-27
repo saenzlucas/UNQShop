@@ -1,19 +1,8 @@
 package Runnable;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import Catalogo.Item;
-import Catalogo.Paquete;
-import Catalogo.Producto;
-import Envio.Presencial;
-import Misc.Sucursal;
-import Pagos.BilleteraVirtual;
-import Pedido.Pedido;
-
 public class UNQShop {
 	public static void main(String[] args) {
-		
+		/*
 		Producto alfajor = new Producto ("Havanna", "Playa Grande", 2000, 0, 5, 90, 1, "Alimento");
 		Producto snack = new Producto ("Doritos", "Sabor Queso", 3500, 0.05, 10, 45, 2, "Alimento");
 		Producto gaseosa = new Producto ("Coca-Cola", "Original", 1500, 0, 3, 500, 3, "Alimento");
@@ -57,9 +46,6 @@ public class UNQShop {
 		order.updateState();
 		
 		System.out.println (coto.getSales());
-		
-
-	
-		
+		*/
 	}
 }

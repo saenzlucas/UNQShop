@@ -1,6 +1,7 @@
 package Pedido;
 
 import Catalogo.Item;
+import Exceptions.StockEmptyException;
 
 public class Borrador extends Estado {
 
@@ -21,7 +22,7 @@ public class Borrador extends Estado {
 	@Override
 	public Estado newState() {
 		if (order.getItems().entrySet().stream().anyMatch(entry -> entry.getKey().getStock() < entry.getValue())) {
-			throw new IllegalStateException("Algun producto de tu carrito no tiene stock"); // Armar una excepcion propia del programa
+			throw new StockEmptyException ();
 		}
 		order.getItems().forEach((item, cantidad) -> item.reduceStock(cantidad));
 		return new Confirmado(order);

@@ -20,16 +20,16 @@ public class Pedido {
 	private Pago payment;
 	private Map<Item, Integer> items;
 	private List<Notificacion> notifications;
-	
+
 	public Pedido(Pago payment, Envio shipment, Sucursal branch) {
 		this.payment = payment;
 		this.shipment = shipment;
 		this.branch = branch;
 		this.items = new HashMap<>();
-		this.state = new Borrador (this);
+		this.state = new Borrador(this);
 		this.notifications = new ArrayList<>();
 	}
-	
+
 	public Map<Item, Integer> getItems() {
 		return items;
 	}
@@ -37,15 +37,15 @@ public class Pedido {
 	public Pago getPayment() {
 		return payment;
 	}
-	
+
 	public Envio getShipment() {
 		return shipment;
 	}
-	
+
 	public Sucursal getBranch() {
 		return branch;
 	}
-	
+
 	public Estado getState() {
 		return state;
 	}
@@ -54,35 +54,39 @@ public class Pedido {
 		return notifications;
 	}
 
-	public double getTotalPrice () {
+	public double getTotalPrice() {
 		return items.entrySet().stream().mapToDouble(entry -> entry.getKey().getFinalPrice() * entry.getValue()).sum();
 	}
 
-	public void addItem (Item item) {
+	public void addItem(Item item) {
 		state.addItem(item);
 	}
 
-	public void removeItem (Item item) {
+	public void removeItem(Item item) {
 		state.removeItem(item);
 	}
-	
-	public void addNotification (Notificacion notification) {
+
+	public void addNotification(Notificacion notification) {
 		notifications.add(notification);
 	}
-	
-	public void removeNotification (Notificacion notification) {
+
+	public void removeNotification(Notificacion notification) {
 		notifications.remove(notification);
 	}
-	
-	public void updateState () {
+
+	public void updateState() {
 		oldState = state;
 		state = state.newState();
-		notifications.forEach(notification -> notification.shoutout(this, oldState, state)); // Ver si se puede mejorar
+		shotout();
 	}
-	
-	public void cancel () {
+
+	public void cancel() {
 		oldState = state;
 		state = state.cancelled();
-		notifications.forEach(notification -> notification.shoutout(this, oldState, state)); // Ver si se puede mejorar
+		shotout();
+	}
+
+	public void shotout() {
+		notifications.forEach(notification -> notification.shoutout(this, oldState, state));
 	}
 }

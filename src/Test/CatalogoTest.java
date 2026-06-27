@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import Catalogo.Item;
 import Catalogo.Paquete;
 import Catalogo.Producto;
+import Exceptions.StockUnchangeableException;
 
 class CatalogoTest {
 
@@ -125,7 +126,7 @@ class CatalogoTest {
 		assertFalse (bajon.inStock());
 		
 		// Paquete no puede setear stock //
-		assertThrows (RuntimeException.class, () -> {
+		assertThrows (StockUnchangeableException.class, () -> {
 	        bajon.setStock(1);
 	    });
 	}

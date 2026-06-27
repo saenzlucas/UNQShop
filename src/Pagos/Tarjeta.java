@@ -12,11 +12,12 @@ public class Tarjeta extends Pago {
 	private int cvv;
 	private LocalDate expiration;
 
-	public Tarjeta(String issuer, double number, int cvv, LocalDate expiration) {
+	public Tarjeta(String issuer, double number, int cvv, LocalDate expiration, TarjetaAPI api) {
 		this.issuer = issuer;
 		this.number = number;
 		this.cvv = cvv;
 		this.expiration = expiration;
+		this.api = api;
 	}
 
 	@Override

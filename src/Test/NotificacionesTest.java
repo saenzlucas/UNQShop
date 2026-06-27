@@ -1,5 +1,7 @@
 package Test;
 
+import static org.mockito.Mockito.mock;
+
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +14,7 @@ import Notificaciones.Factura;
 import Notificaciones.Fidelizacion;
 import Notificaciones.Notificacion;
 import Pagos.BilleteraVirtual;
+import Pagos.BilleteraVirtualAPI;
 import Pedido.Borrador;
 import Pedido.Cancelado;
 import Pedido.Confirmado;
@@ -33,7 +36,9 @@ class NotificacionesTest {
 		factura = new Factura ();
 		fidelizacion = new Fidelizacion ();
 		
-		order = new Pedido (new BilleteraVirtual(), new Presencial (), new Sucursal (new ArrayList<>()));
+		BilleteraVirtualAPI api = mock(BilleteraVirtualAPI.class);
+		
+		order = new Pedido (new BilleteraVirtual(api), new Presencial (), new Sucursal (new ArrayList<>()));
 	}
 
 	@Test
