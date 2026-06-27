@@ -1,14 +1,27 @@
 package Pagos;
 
 public class BilleteraVirtual extends Pago {
-	
+
 	private BilleteraVirtualAPI api;
 
-	public void processPayment() {
+	@Override
+	public void validateData() {
 		api.checkBalance();
-		api.blockBalance();;
-		api.accredit();;
-		api.inform();;
+	}
+
+	@Override
+	public void reserveFunds() {
+		api.blockBalance();
+	}
+
+	@Override
+	public void executeTransaction() {
+		api.accredit();
+	}
+
+	@Override
+	public void reportResult() {
+		api.inform();
 	}
 
 }

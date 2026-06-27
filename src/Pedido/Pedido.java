@@ -1,15 +1,14 @@
 
 package Pedido;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import Catalogo.Item;
 import Envio.Envio;
-import Notificaciones.Email;
-import Notificaciones.Factura;
-import Notificaciones.Fidelizacion;
+import Misc.Sucursal;
 import Notificaciones.Notificacion;
 import Pagos.Pago;
 
@@ -17,16 +16,18 @@ public class Pedido {
 	private Estado state;
 	private Estado oldState;
 	private Envio shipment;
+	private Sucursal branch;
 	private Pago payment;
 	private Map<Item, Integer> items;
 	private List<Notificacion> notifications;
 	
-	public Pedido(Pago payment, Envio shipment) {
+	public Pedido(Pago payment, Envio shipment, Sucursal branch) {
 		this.payment = payment;
 		this.shipment = shipment;
+		this.branch = branch;
 		this.items = new HashMap<>();
 		this.state = new Borrador (this);
-		this.notifications = List.of(new Email(), new Factura(), new Fidelizacion());
+		this.notifications = new ArrayList<>();
 	}
 	
 	public Map<Item, Integer> getItems() {
@@ -39,6 +40,18 @@ public class Pedido {
 	
 	public Envio getShipment() {
 		return shipment;
+	}
+	
+	public Sucursal getBranch() {
+		return branch;
+	}
+	
+	public Estado getState() {
+		return state;
+	}
+
+	public List<Notificacion> getNotifications() {
+		return notifications;
 	}
 
 	public double getTotalPrice () {
@@ -65,7 +78,6 @@ public class Pedido {
 		oldState = state;
 		state = state.newState();
 		notifications.forEach(notification -> notification.shoutout(this, oldState, state)); // Ver si se puede mejorar
-		
 	}
 	
 	public void cancel () {

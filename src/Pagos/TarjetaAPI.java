@@ -1,18 +1,11 @@
 package Pagos;
 
-import Misc.CuponDePago;
+public interface TarjetaAPI {
 
-public interface TarjetaAPI { // Testear con mockito
-
-	boolean verifyData ();
+	void verifyData ();
 	
 	void requestAuthorization ();
 	
 	void transfer ();
-	
-	default void generateCoupon () {
-		CuponDePago coupon = new CuponDePago ();
-		coupon.register();
-	}
 	
 }

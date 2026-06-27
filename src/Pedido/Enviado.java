@@ -1,5 +1,7 @@
 package Pedido;
 
+import java.time.LocalDate;
+
 import Misc.NotaDeCredito;
 
 public class Enviado extends Estado {
@@ -10,6 +12,7 @@ public class Enviado extends Estado {
 	
 	@Override
 	public Estado newState () {
+		order.getBranch().newSale(order.getItems(), LocalDate.now());
 		return new Entregado (order);
 	}
 	

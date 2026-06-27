@@ -1,8 +1,8 @@
 package Pagos;
 
-public interface BilleteraVirtualAPI { // Testear con mockito
+public interface BilleteraVirtualAPI {
 
-	boolean checkBalance ();
+	void checkBalance ();
 	
 	void blockBalance ();
 	 
