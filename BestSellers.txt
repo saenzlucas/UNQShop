@@ -1,0 +1,24 @@
+=======================================
+Reporte de items mas vendidos
+Periodo desde 2025-11-24 al 2026-11-24
+=======================================
+
+(1) [Item] Coca-Cola | $1500.0
+
+(2) [Item] Salchichas Swift | $5000.0
+
+(3) [Item] Combo Vocero | $20000.0
+
+(4) [Item] Silla de Pino | $25000.0
+
+(5) [Item] Samsung A36 | $100000.0
+
+(6) [Item] Pendrive Kingston | $150000.0
+
+(7) [Item] Combo Bajon | $7000.0
+
+(8) [Item] Doritos | $3500.0
+
+(9) [Item] Soldadora | $150000.0
+
+(10) [Item] Havanna | $2000.0
