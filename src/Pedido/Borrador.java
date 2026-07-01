@@ -21,10 +21,10 @@ public class Borrador extends Estado {
 
 	@Override
 	public Estado newState() {
-		if (order.getItems().entrySet().stream().anyMatch(entry -> entry.getKey().getStock() < entry.getValue())) {
+		if (order.getItems().entrySet().stream().anyMatch(item -> order.getBranch().getStock(item.getKey()) < item.getValue())) {
 			throw new StockEmptyException ();
 		}
-		order.getItems().forEach((item, cantidad) -> item.reduceStock(cantidad));
+		order.getItems().forEach((item, cantidad) -> order.getBranch().reduceStock(item, cantidad));
 		return new Confirmado(order);
 	}
 

@@ -13,7 +13,7 @@ public class Confirmado extends Estado {
 	
 	@Override
 	public Estado cancelled () {
-		order.getItems().forEach((item, cantidad) -> item.increaseStock(cantidad));
+		order.getItems().forEach((item, cantidad) -> order.getBranch().increaseStock(item, cantidad));
 		return new Cancelado (order);
 	}
 }

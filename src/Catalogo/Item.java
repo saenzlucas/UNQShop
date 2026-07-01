@@ -37,6 +37,10 @@ public abstract class Item {
 		return discount;
 	}
 
+	public int getWeight() {
+		return weight;
+	}
+
 	public Object getAttribute (String attribute) {
 		return dinamics.get(attribute);
 	}
@@ -47,7 +51,7 @@ public abstract class Item {
 	
 	public boolean validateItem () {
 		boolean validName = name != null;
-		boolean validDinamics =  dinamics.values().stream().allMatch(value -> value != null);
+		boolean validDinamics =  dinamics.values().stream().allMatch(attribute -> attribute != null);
 		return validName && validDinamics;
 	}
 	
@@ -56,14 +60,4 @@ public abstract class Item {
 	public abstract double getFinalPrice ();
 	
 	public abstract boolean isCategory(String category);
-	
-	public abstract boolean inStock();
-	
-	public abstract int getStock();
-	
-	public abstract void increaseStock(int amount);
-	
-	public abstract void reduceStock(int amount);
-	
-	public abstract void setStock(int stock);
 }

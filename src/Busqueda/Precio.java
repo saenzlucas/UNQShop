@@ -1,6 +1,6 @@
 package Busqueda;
 
-import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import Catalogo.Item;
@@ -14,8 +14,8 @@ public class Precio implements Criterio {
 	}
 
 	@Override
-	public List<Item> filter(List<Item> catalog) {
-		return catalog.stream().filter(item -> item.getPrice() <= maxPrice).collect(Collectors.toList());
+	public Map<Item, Integer> filter(Map<Item, Integer> catalog) {
+		return catalog.entrySet().stream().filter(item -> item.getKey().getPrice() <= maxPrice).collect(Collectors.toMap(item -> item.getKey(), item -> item.getValue()));
 	}
 	
 }

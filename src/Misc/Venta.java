@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import Catalogo.Item;
-import Reportes.Reporte;
 
 public class Venta {
 	
@@ -15,9 +14,13 @@ public class Venta {
 		this.items = items;
 		this.date = date;
 	}
+	
+	public Map<Item, Integer> getItems() {
+		return items;
+	}
 
-	public void accept (Reporte report) {
-		
+	public LocalDate getDate() {
+		return date;
 	}
 	
 }

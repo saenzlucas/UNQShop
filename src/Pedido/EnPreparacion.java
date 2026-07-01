@@ -17,7 +17,7 @@ public class EnPreparacion extends Estado {
 	public Estado cancelled () {
 		NotaDeCredito creditNote = new NotaDeCredito ("Lucas Saenz (46282416)", order.getTotalPrice(), order.getShipment().calculateCost());
 		creditNote.register();
-		order.getItems().forEach((item, cantidad) -> item.increaseStock(cantidad));
+		order.getItems().forEach((item, cantidad) -> order.getBranch().increaseStock(item, cantidad));
 		return new Cancelado (order);
 	}
 }

@@ -2,6 +2,7 @@ package Envio;
 
 import Misc.CorreoArgentina;
 import Misc.Direccion;
+import Pedido.Pedido;
 
 public class Estandar implements Envio {
 	
@@ -13,6 +14,11 @@ public class Estandar implements Envio {
 		this.address = address;
 		this.weight = weight;
 		this.shipping = shipping;
+	}
+	
+	@Override
+	public void shippingTime (Pedido order) {
+		System.out.println ("La entrega se garantiza entre 5 y 7 dias habiles");
 	}
 
 	@Override

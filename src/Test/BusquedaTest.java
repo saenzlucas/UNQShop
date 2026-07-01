@@ -3,7 +3,9 @@ package Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,17 +35,17 @@ class BusquedaTest {
 	private Paquete bajon;
 
 	private List<Item> food;
-	private List<Item> catalog;
+	private Map<Item, Integer> catalog;
 
 	@BeforeEach
 	void setUp() {
-		alfajor = new Producto("Havanna", "Playa Grande", 2000, 0, 5, 90, 1, "Alimento");
-		snack = new Producto("Doritos", "Sabor Queso", 3500, 0.05, 10, 45, 2, "Alimento");
-		gaseosa = new Producto("Coca-Cola", "Original", 1500, 0, 3, 500, 3, "Alimento");
+		alfajor = new Producto("Havanna", "Playa Grande", 2000, 0, 90, 1, "Alimento");
+		snack = new Producto("Doritos", "Sabor Queso", 3500, 0.05, 45, 2, "Alimento"); 
+		gaseosa = new Producto("Coca-Cola", "Original", 1500, 0, 500, 3, "Alimento"); 
 
-		celular = new Producto("Samsung A36", "5G 6/128GB", 100000, 0.25, 2, 195, 4, "Electronica");
-		silla = new Producto("Silla de Pino", "Estilo Nordico", 25000, 0, 0, 4000, 5, "Hogar");
-		soldadora = new Producto("Soldadora", "TIG", 150000, 0.10, 1, 4500, 6, "Herramienta");
+		celular = new Producto("Samsung A36", "5G 6/128GB", 100000, 0.25, 195, 4, "Electronica"); 
+		silla = new Producto("Silla de Pino", "Estilo Nordico", 25000, 0, 4000, 5, "Hogar"); 
+		soldadora = new Producto("Soldadora", "TIG", 150000, 0.10, 4500, 6, "Herramienta"); 
 
 		food = new ArrayList<>();
 		food.add(alfajor);
@@ -52,38 +54,38 @@ class BusquedaTest {
 
 		bajon = new Paquete("Combo Bajon", "Alfajor + Snack + Bebida", 7000, 0.15, 635, food);
 
-		catalog = new ArrayList<>();
-		catalog.add(celular);
-		catalog.add(silla);
-		catalog.add(soldadora);
-		catalog.add(alfajor);
-		catalog.add(snack);
-		catalog.add(gaseosa);
-		catalog.add(bajon);
+		catalog = new HashMap<>();
+		catalog.put(alfajor, 5);
+		catalog.put(snack, 10);
+		catalog.put(gaseosa, 3);
+		catalog.put(celular, 2);
+		catalog.put(silla, 0);
+		catalog.put(soldadora, 1);
+		catalog.put(bajon, 3);
 	}
 
 	@Test
 	void byName () {
 		Criterio name = new Nombre ("Silla de Pino");
-		assertEquals (name.filter(catalog), List.of(silla));
+		assertEquals (Map.of(silla, 0), name.filter(catalog));
 	}
 	
 	@Test
 	void byCategory () {
 		Criterio category = new Categoria ("Alimento");
-		assertEquals (category.filter(catalog), List.of(alfajor, snack, gaseosa, bajon));
+		assertEquals (Map.of(alfajor, 5, snack, 10, gaseosa, 3, bajon, 3), category.filter(catalog));
 	}
 	
 	@Test
 	void byPrice () {
 		Criterio price = new Precio (5000);
-		assertEquals (price.filter(catalog), List.of(alfajor, snack, gaseosa));
+		assertEquals (Map.of(alfajor, 5, snack, 10, gaseosa, 3), price.filter(catalog));
 	}
 	
 	@Test
 	void byAvailability () {
 		Criterio availability = new Disponibilidad ();
-		assertEquals (availability.filter(catalog), List.of(celular, soldadora, alfajor, snack, gaseosa, bajon));
+		assertEquals (Map.of(celular, 2, soldadora, 1, alfajor, 5, snack, 10, gaseosa, 3, bajon, 3), availability.filter(catalog));
 	}
 	
 	@Test
@@ -92,7 +94,7 @@ class BusquedaTest {
 		Criterio category = new Categoria ("Alimento");
 		Criterio price = new Precio (5000);
 		Criterio or = new OR (List.of(name, category, price));
-		assertEquals (or.filter(catalog), List.of(soldadora, alfajor, snack, gaseosa, bajon));
+		assertEquals (Map.of(soldadora, 1, alfajor, 5, snack, 10, gaseosa, 3, bajon, 3), or.filter(catalog));
 	}
 	
 	@Test
@@ -101,14 +103,14 @@ class BusquedaTest {
 		Criterio price = new Precio (3000);
 		Criterio availability = new Disponibilidad ();
 		Criterio and = new AND (List.of(category, price, availability));
-		assertEquals (and.filter(catalog), List.of(alfajor, gaseosa));
+		assertEquals (Map.of(alfajor, 5, gaseosa, 3), and.filter(catalog));
 	}
 	
 	@Test
 	void not () {
 		Criterio availability = new Disponibilidad ();
 		Criterio not = new NOT (availability);
-		assertEquals (not.filter(catalog), List.of(silla));
+		assertEquals (Map.of(silla, 0), not.filter(catalog));
 	}
 
 

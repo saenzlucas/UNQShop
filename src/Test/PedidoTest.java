@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,17 +57,17 @@ class PedidoTest {
 	private Paquete bajon;
 
 	private List<Item> food;
-	private List<Item> catalog;
+	private Map<Item, Integer> catalog;
 
 	@BeforeEach
 	void setUp() {
-		alfajor = new Producto("Havanna", "Playa Grande", 2000, 0, 5, 90, 1, "Alimento");
-		snack = new Producto("Doritos", "Sabor Queso", 3500, 0.05, 10, 45, 2, "Alimento");
-		gaseosa = new Producto("Coca-Cola", "Original", 1500, 0, 3, 500, 3, "Alimento");
+		alfajor = new Producto("Havanna", "Playa Grande", 2000, 0, 90, 1, "Alimento"); 
+		snack = new Producto("Doritos", "Sabor Queso", 3500, 0.05, 45, 2, "Alimento"); 
+		gaseosa = new Producto("Coca-Cola", "Original", 1500, 0, 500, 3, "Alimento"); 
 
-		celular = new Producto("Samsung A36", "5G 6/128GB", 100000, 0.25, 2, 195, 4, "Electronica");
-		silla = new Producto("Silla de Pino", "Estilo Nordico", 25000, 0, 0, 4000, 5, "Hogar");
-		soldadora = new Producto("Soldadora", "TIG", 150000, 0.10, 1, 4500, 6, "Herramienta");
+		celular = new Producto("Samsung A36", "5G 6/128GB", 100000, 0.25, 195, 4, "Electronica"); 
+		silla = new Producto("Silla de Pino", "Estilo Nordico", 25000, 0, 4000, 5, "Hogar"); 
+		soldadora = new Producto("Soldadora", "TIG", 150000, 0.10, 4500, 6, "Herramienta"); 
 
 		food = new ArrayList<>();
 		food.add(alfajor);
@@ -75,14 +76,14 @@ class PedidoTest {
 
 		bajon = new Paquete("Combo Bajon", "Alfajor + Snack + Bebida", 7000, 0.15, 635, food);
 
-		catalog = new ArrayList<>();
-		catalog.add(celular);
-		catalog.add(silla);
-		catalog.add(soldadora);
-		catalog.add(alfajor);
-		catalog.add(snack);
-		catalog.add(gaseosa);
-		catalog.add(bajon);
+		catalog = new HashMap<>();
+		catalog.put(celular, 2);
+		catalog.put(silla, 0);
+		catalog.put(soldadora, 1);
+		catalog.put(alfajor, 5);
+		catalog.put(snack, 10);
+		catalog.put(gaseosa, 3);
+		catalog.put(bajon, 3);
 
 		BilleteraVirtualAPI api = mock(BilleteraVirtualAPI.class);
 		payment = new BilleteraVirtual(api);
@@ -98,13 +99,13 @@ class PedidoTest {
 	@Test
 	void exposedAttributes() {
 		// Se puede obtener el metodo de pago //
-		assertEquals(order.getPayment(), payment);
+		assertEquals(payment, order.getPayment());
 
 		// Se puede obtener el metodo de envio //
-		assertEquals(order.getShipment(), shipment);
+		assertEquals(shipment, order.getShipment());
 
 		// Se puede obtener la sucursal //
-		assertEquals(order.getBranch(), branch);
+		assertEquals(branch, order.getBranch());
 	}
 
 	@Test
@@ -112,12 +113,12 @@ class PedidoTest {
 		// Se pueden agregar items al pedido //
 		order.addItem(silla);
 		order.addItem(bajon);
-		assertEquals(order.getItems(), Map.of(silla, 1, bajon, 1));
+		assertEquals(Map.of(silla, 1, bajon, 1), order.getItems());
 
 		// Se pueden remover items del pedido //
 		order.addItem(bajon);
 		order.removeItem(silla);
-		assertEquals(order.getItems(), Map.of(bajon, 2));
+		assertEquals(Map.of(bajon, 2), order.getItems());
 	}
 
 	@Test
@@ -125,8 +126,17 @@ class PedidoTest {
 		// Se pueden calcular el precio total del pedido //
 		order.addItem(celular);
 		order.addItem(silla);
-		assertEquals(order.getTotalPrice(), 100000);
+		assertEquals(100000, order.getTotalPrice());
 	}
+	
+	@Test
+	void weight() {
+		// Se pueden calcular el peso total del pedido //
+		order.addItem(celular);
+		order.addItem(silla);
+		assertEquals(4195, order.getTotalWeight());
+	}
+
 
 	@Test
 	void orderState() {

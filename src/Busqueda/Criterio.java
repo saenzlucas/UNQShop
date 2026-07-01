@@ -1,11 +1,9 @@
 package Busqueda;
 
-import java.util.List;
+import java.util.Map;
 
 import Catalogo.Item;
 
 public interface Criterio {
-	
-	List<Item> filter (List<Item> catalog);
-
+	Map<Item, Integer> filter (Map<Item, Integer> catalog);
 }

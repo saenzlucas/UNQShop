@@ -2,8 +2,6 @@ package Catalogo;
 
 import java.util.List;
 
-import Exceptions.StockUnchangeableException;
-
 public class Paquete extends Item {
 
 private List<Item> items;
@@ -28,31 +26,5 @@ private List<Item> items;
 	@Override 
 	public boolean isCategory (String category) {
 		return items.stream().anyMatch(item -> item.isCategory(category));
-	}
-	
-	
-	@Override
-	public boolean inStock() {
-		return getStock() > 0;
-	}
-	
-	@Override
-	public int getStock() {
-		return items.stream().mapToInt(Item::getStock).min().orElse(0);
-	}
-	
-	@Override
-	public void increaseStock (int amount) {
-		items.forEach(item -> item.increaseStock(amount));
-	}
-	
-	@Override
-	public void reduceStock (int amount) {
-		items.forEach(item -> item.reduceStock(amount));
-	}
-	
-	@Override
-	public void setStock(int stock) {
-		throw new StockUnchangeableException ();
 	}
 }

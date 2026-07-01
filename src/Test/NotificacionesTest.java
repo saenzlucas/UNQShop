@@ -2,7 +2,7 @@ package Test;
 
 import static org.mockito.Mockito.mock;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ class NotificacionesTest {
 		
 		BilleteraVirtualAPI api = mock(BilleteraVirtualAPI.class);
 		
-		order = new Pedido (new BilleteraVirtual(api), new Presencial (), new Sucursal (new ArrayList<>()));
+		order = new Pedido (new BilleteraVirtual(api), new Presencial (), new Sucursal (new HashMap<>()));
 	}
 
 	@Test

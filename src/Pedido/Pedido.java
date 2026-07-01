@@ -55,7 +55,11 @@ public class Pedido {
 	}
 
 	public double getTotalPrice() {
-		return items.entrySet().stream().mapToDouble(entry -> entry.getKey().getFinalPrice() * entry.getValue()).sum();
+		return items.entrySet().stream().mapToDouble(item -> item.getKey().getFinalPrice() * item.getValue()).sum();
+	}
+	
+	public double getTotalWeight() {
+		return items.entrySet().stream().mapToInt(item -> item.getKey().getWeight() * item.getValue()).sum();
 	}
 
 	public void addItem(Item item) {

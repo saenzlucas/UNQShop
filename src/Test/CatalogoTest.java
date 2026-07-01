@@ -2,11 +2,12 @@ package Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import Catalogo.Item;
 import Catalogo.Paquete;
 import Catalogo.Producto;
-import Exceptions.StockUnchangeableException;
 
 class CatalogoTest {
 
@@ -29,17 +29,17 @@ class CatalogoTest {
 	private Paquete bajon;
 
 	private List<Item> food;
-	private List<Item> catalog;
+	private Map<Item, Integer> catalog;
 
 	@BeforeEach
 	void setUp() {
-		alfajor = new Producto("Havanna", "Playa Grande", 2000, 0, 5, 90, 1, "Alimento");
-		snack = new Producto("Doritos", "Sabor Queso", 3500, 0.05, 10, 45, 2, "Alimento");
-		gaseosa = new Producto("Coca-Cola", "Original", 1500, 0, 3, 500, 3, "Alimento");
+		alfajor = new Producto("Havanna", "Playa Grande", 2000, 0, 90, 1, "Alimento"); 
+		snack = new Producto("Doritos", "Sabor Queso", 3500, 0.05, 45, 2, "Alimento"); 
+		gaseosa = new Producto("Coca-Cola", "Original", 1500, 0, 500, 3, "Alimento"); 
 
-		celular = new Producto("Samsung A36", "5G 6/128GB", 100000, 0.25, 2, 195, 4, "Electronica");
-		silla = new Producto("Silla de Pino", "Estilo Nordico", 25000, 0, 4, 4000, 5, "Hogar");
-		soldadora = new Producto("Soldadora", "TIG", 150000, 0.10, 1, 4500, 6, "Herramienta");
+		celular = new Producto("Samsung A36", "5G 6/128GB", 100000, 0.25, 195, 4, "Electronica"); 
+		silla = new Producto("Silla de Pino", "Estilo Nordico", 25000, 0, 4000, 5, "Hogar"); 
+		soldadora = new Producto("Soldadora", "TIG", 150000, 0.10, 4500, 6, "Herramienta"); 
 
 		food = new ArrayList<>();
 		food.add(alfajor);
@@ -48,37 +48,37 @@ class CatalogoTest {
 
 		bajon = new Paquete("Combo Bajon", "Alfajor + Snack + Bebida", 7000, 0.15, 635, food);
 
-		catalog = new ArrayList<>();
-		catalog.add(celular);
-		catalog.add(silla);
-		catalog.add(soldadora);
-		catalog.add(bajon);
+		catalog = new HashMap<>();
+		catalog.put(celular, 2);
+		catalog.put(silla, 4);
+		catalog.put(soldadora, 1 );
+		catalog.put(bajon, 3);
 	}
 
 	@Test
 	void exposedAttributes() {
 		// Se puede obtener el nombre //
-		assertEquals (celular.getName(), "Samsung A36");
+		assertEquals ("Samsung A36", celular.getName());
 		
 		// Se puede obtener la descripcion //
-		assertEquals (celular.getDescription(), "5G 6/128GB");
+		assertEquals ("5G 6/128GB", celular.getDescription());
 		
 		// Se puede obtener el precio //
-		assertEquals (celular.getPrice(), 100000);
+		assertEquals (100000, celular.getPrice());
 		
 		// Se puede obtener el porcentaje de descuento //
-		assertEquals (celular.getDiscount(), 0.25);
+		assertEquals (0.25, celular.getDiscount());
 	}
 	
 	@Test
 	void dinamicsAttributes() {
 		// Producto puede tener atributos dinamicos //
 		celular.addAttribute("compañia", "Movistar");
-		assertEquals (celular.getAttribute("compañia"), "Movistar");
+		assertEquals ("Movistar", celular.getAttribute("compañia"));
 		
 		// Paquete puede tener atributos dinamicos //
 		bajon.addAttribute("kcal", 800);
-		assertEquals (bajon.getAttribute("kcal"), 800);
+		assertEquals (800, bajon.getAttribute("kcal"));
 	}
 	
 	@Test
@@ -93,42 +93,12 @@ class CatalogoTest {
 	@Test
 	void productIsInvalid () {
 		// Producto es invalido //
-		soldadora = new Producto(null, "TIG", 150000, 0.10, 1, 4500, 0, "Herramienta");
+		soldadora = new Producto(null, "TIG", 150000, 0.10, 4500, 0, "Herramienta");
 		assertFalse (soldadora.validateProduct());
 		
 		// Paquete es invalido //
 		bajon = new Paquete(null, "Alfajor + Snack + Bebida", 7000, 0.15, 635, food);
 		assertFalse (bajon.validateProduct());
-	}
-	
-	@Test
-	void stock () {
-		// Hay stock de Producto //
-		snack.reduceStock(1);
-		assertEquals (snack.getStock(), 9);
-		assertTrue (snack.inStock());
-		snack.increaseStock(1);
-		assertEquals (snack.getStock(), 10);
-		
-		// Hay stock de Paquete //
-		bajon.reduceStock(2);
-		assertEquals (bajon.getStock(), 1);
-		assertTrue (bajon.inStock());
-		bajon.increaseStock(2);
-		assertEquals (bajon.getStock(), 3);
-		
-		// No hay stock de Producto //
-		gaseosa.reduceStock(3);
-		assertFalse (gaseosa.inStock());
-		
-		// No hay stock de Paquete //
-		bajon.reduceStock(3);
-		assertFalse (bajon.inStock());
-		
-		// Paquete no puede setear stock //
-		assertThrows (StockUnchangeableException.class, () -> {
-	        bajon.setStock(1);
-	    });
 	}
 	
 	@Test
@@ -152,9 +122,9 @@ class CatalogoTest {
 	@Test
 	void finalPrice () {
 		// Se calcula el precio final con descuento aplicado de Producto //
-		assertEquals (celular.getFinalPrice(), 75000);
+		assertEquals (75000, celular.getFinalPrice());
 		
 		// Se calcula el precio final con descuento aplicado de Paquete //
-		assertEquals (bajon.getFinalPrice(), 5801.25);
+		assertEquals (5801.25, bajon.getFinalPrice());
 	}
 }
