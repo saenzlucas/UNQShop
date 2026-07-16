@@ -8,12 +8,16 @@ public class Confirmado extends Estado {
 	
 	@Override
 	public Estado newState () {
-		return new EnPreparacion (order);
+		Estado newState = new EnPreparacion (getOrder());
+		shotout (this, newState);
+		return newState;
 	}
 	
 	@Override
 	public Estado cancelled () {
-		order.getItems().forEach((item, cantidad) -> order.getBranch().increaseStock(item, cantidad));
-		return new Cancelado (order);
+		Estado newState = new Cancelado (getOrder());
+		getOrder().getItems().forEach((item, cantidad) -> getOrder().getBranch().increaseStock(item, cantidad));
+		shotout (this, newState);
+		return newState;
 	}
 }

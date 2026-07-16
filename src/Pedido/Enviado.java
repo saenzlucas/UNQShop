@@ -12,14 +12,18 @@ public class Enviado extends Estado {
 	
 	@Override
 	public Estado newState () {
-		order.getBranch().newSale(order.getItems(), LocalDate.now());
-		return new Entregado (order);
+		Estado newState = new Entregado (getOrder());
+		getOrder().getBranch().newSale(getOrder().getItems(), LocalDate.now());
+		shotout (this, newState);
+		return newState;
 	}
 	
 	@Override
 	public Estado cancelled () {
-		NotaDeCredito creditNote = new NotaDeCredito ("Lucas Saenz (46282416)", order.getTotalPrice(), 0);
+		Estado newState = new Cancelado (getOrder());
+		NotaDeCredito creditNote = new NotaDeCredito ("Lucas Saenz (46282416)", getOrder().getPrice(), 0);
 		creditNote.register();
-		return new Cancelado (order);
+		shotout (this, newState);
+		return newState;
 	}
 }

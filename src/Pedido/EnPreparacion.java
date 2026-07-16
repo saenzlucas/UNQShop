@@ -10,14 +10,18 @@ public class EnPreparacion extends Estado {
 	
 	@Override
 	public Estado newState () {
-		return new Enviado (order);
+		Estado newState = new Enviado (getOrder());
+		shotout (this, newState);
+		return newState;
 	}
 	
 	@Override
 	public Estado cancelled () {
-		NotaDeCredito creditNote = new NotaDeCredito ("Lucas Saenz (46282416)", order.getTotalPrice(), order.getShipment().calculateCost());
+		Estado newState = new Cancelado (getOrder());
+		NotaDeCredito creditNote = new NotaDeCredito ("Lucas Saenz (46282416)", getOrder().getPrice(), getOrder().getShipment().calculateCost(getOrder()));
 		creditNote.register();
-		order.getItems().forEach((item, cantidad) -> order.getBranch().increaseStock(item, cantidad));
-		return new Cancelado (order);
+		getOrder().getItems().forEach((item, cantidad) -> getOrder().getBranch().increaseStock(item, cantidad));
+		shotout (this, newState);
+		return newState;
 	}
 }

@@ -11,25 +11,29 @@ public class Borrador extends Estado {
 
 	@Override
 	public void addItem(Item item) {
-		order.getItems().merge(item, 1, (oldValue, newValue) -> oldValue + 1);
+		getOrder().getItems().merge(item, 1, (oldValue, newValue) -> oldValue + 1);
 	}
 
 	@Override
 	public void removeItem(Item item) {
-		order.getItems().computeIfPresent(item, (key, value) -> value > 1 ? value - 1 : null);
+		getOrder().getItems().computeIfPresent(item, (key, value) -> value > 1 ? value - 1 : null);
 	}
 
 	@Override
 	public Estado newState() {
-		if (order.getItems().entrySet().stream().anyMatch(item -> order.getBranch().getStock(item.getKey()) < item.getValue())) {
+		Estado newState = new Confirmado(getOrder());
+		if (getOrder().getItems().entrySet().stream().anyMatch(item -> getOrder().getBranch().getStock(item.getKey()) < item.getValue())) {
 			throw new StockEmptyException ();
 		}
-		order.getItems().forEach((item, cantidad) -> order.getBranch().reduceStock(item, cantidad));
-		return new Confirmado(order);
+		getOrder().getItems().forEach((item, cantidad) -> getOrder().getBranch().reduceStock(item, cantidad));
+		shotout (this, newState);
+		return newState;
 	}
 
 	@Override
 	public Estado cancelled() {
-		return new Cancelado(order);
+		Estado newState = new Cancelado(getOrder());
+		shotout (this, newState);
+		return newState;
 	}
 }

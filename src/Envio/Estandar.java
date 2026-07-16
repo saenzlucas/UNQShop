@@ -1,18 +1,13 @@
 package Envio;
 
 import Misc.CorreoArgentina;
-import Misc.Direccion;
 import Pedido.Pedido;
 
 public class Estandar implements Envio {
 	
-	private Direccion address;
-	private float weight;
 	private CorreoArgentina shipping;
 	
-	public Estandar(Direccion address, float weight, CorreoArgentina shipping) {
-		this.address = address;
-		this.weight = weight;
+	public Estandar(CorreoArgentina shipping) {
 		this.shipping = shipping;
 	}
 	
@@ -22,7 +17,7 @@ public class Estandar implements Envio {
 	}
 
 	@Override
-	public float calculateCost () {
-		return shipping.estimarEnvio(weight, address);
+	public float calculateCost (Pedido order) {
+		return shipping.estimarEnvio((float) order.getWeight(), order.getAddress());
 	}
 }

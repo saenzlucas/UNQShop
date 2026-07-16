@@ -5,11 +5,9 @@ import Pedido.Pedido;
 
 public class Express implements Envio {
 
-	private float price;
 	private EnvioExpress shipping;
 	
-	public Express(float price, EnvioExpress shipping) {
-		this.price = price;
+	public Express(EnvioExpress shipping) {
 		this.shipping = shipping;
 	}
 	
@@ -19,7 +17,7 @@ public class Express implements Envio {
 	}
 
 	@Override
-	public float calculateCost () {
-		return shipping.calcularCosto(price);
+	public float calculateCost (Pedido order) {
+		return shipping.calcularCosto((float) order.getPrice());
 	}
 }

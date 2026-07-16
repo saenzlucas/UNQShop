@@ -5,22 +5,26 @@ import java.util.Map;
 
 public abstract class Item {
 
+	private int sku;
 	private String name;
 	private String description;
-	private double price;
+	private String category;
 	private double discount;
-	private int weight;
 	private Map<String, Object> dinamics;
 	
-	public Item (String name, String description, double price, double discount, int weight) {
+	public Item (int sku, String name, String description, String category, double discount) {
+		this.sku = sku;
 		this.name = name;
 		this.description = description;
-		this.price = price;
+		this.category = category;
 		this.discount = discount;
-		this.weight = weight;
 		this.dinamics = new HashMap<>();
 	}
 	
+	public int getSku() {
+		return sku;
+	}
+
 	public String getName () {
 		return name;
 	}
@@ -29,16 +33,16 @@ public abstract class Item {
 		return description;
 	}
 
-	public double getPrice () {
-		return price;
+	public String getCategory() {
+		return category;
 	}
-
+	
 	public double getDiscount () {
 		return discount;
 	}
-
-	public int getWeight() {
-		return weight;
+	
+	public Map<String, Object> getDinamics () {
+		return dinamics;
 	}
 
 	public Object getAttribute (String attribute) {
@@ -49,15 +53,15 @@ public abstract class Item {
 		dinamics.put(attribute, data);
 	}
 	
-	public boolean validateItem () {
-		boolean validName = name != null;
-		boolean validDinamics =  dinamics.values().stream().allMatch(attribute -> attribute != null);
-		return validName && validDinamics;
+	public boolean isCategory (String category) {
+		return getCategory().equalsIgnoreCase(category);
 	}
 	
-	public abstract boolean validateProduct ();
+	public abstract boolean validateItem ();
+	
+	public abstract int getWeight ();
+	
+	public abstract double getPrice ();
 	
 	public abstract double getFinalPrice ();
-	
-	public abstract boolean isCategory(String category);
 }

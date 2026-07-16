@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,7 @@ import Envio.Envio;
 import Envio.Presencial;
 import Exceptions.InvalidStateActionException;
 import Exceptions.StockEmptyException;
+import Misc.Direccion;
 import Misc.Sucursal;
 import Notificaciones.Email;
 import Notificaciones.Notificacion;
@@ -40,6 +40,7 @@ class PedidoTest {
 
 	private Pago payment;
 	private Envio shipment;
+	private Direccion address;
 	private Sucursal branch;
 
 	private Notificacion email;
@@ -56,25 +57,21 @@ class PedidoTest {
 
 	private Paquete bajon;
 
-	private List<Item> food;
 	private Map<Item, Integer> catalog;
 
 	@BeforeEach
-	void setUp() {
-		alfajor = new Producto("Havanna", "Playa Grande", 2000, 0, 90, 1, "Alimento"); 
-		snack = new Producto("Doritos", "Sabor Queso", 3500, 0.05, 45, 2, "Alimento"); 
-		gaseosa = new Producto("Coca-Cola", "Original", 1500, 0, 500, 3, "Alimento"); 
+	void setUp() {		
+		address = new Direccion(1875, 6100, "Av Mitre", "Wilde, Avellaneda");
+		
+		alfajor = new Producto(1, "Havanna", "Playa Grande", "Alimento", 0, 2000, 90);
+		snack = new Producto(2, "Doritos", "Sabor Queso", "Alimento", 0.05, 3500, 45); 
+		gaseosa = new Producto(3, "Coca-Cola", "Original", "Alimento", 0, 1500, 500); 
 
-		celular = new Producto("Samsung A36", "5G 6/128GB", 100000, 0.25, 195, 4, "Electronica"); 
-		silla = new Producto("Silla de Pino", "Estilo Nordico", 25000, 0, 4000, 5, "Hogar"); 
-		soldadora = new Producto("Soldadora", "TIG", 150000, 0.10, 4500, 6, "Herramienta"); 
+		celular = new Producto(4, "Samsung A36", "5G 6/128GB", "Electronica", 0.25, 100000, 195); 
+		silla = new Producto(5, "Silla de Pino", "Estilo Nordico", "Hogar", 0, 25000, 4000); 
+		soldadora = new Producto(6, "Soldadora", "TIG", "Herramienta", 0.10, 150000, 4500); 
 
-		food = new ArrayList<>();
-		food.add(alfajor);
-		food.add(snack);
-		food.add(gaseosa);
-
-		bajon = new Paquete("Combo Bajon", "Alfajor + Snack + Bebida", 7000, 0.15, 635, food);
+		bajon = new Paquete(7, "Combo Bajon", "Alfajor + Snack + Bebida", "Alimento", 0.15, List.of(alfajor, snack, gaseosa));
 
 		catalog = new HashMap<>();
 		catalog.put(celular, 2);
@@ -93,7 +90,7 @@ class PedidoTest {
 
 		email = new Email();
 
-		order = new Pedido(payment, shipment, branch);
+		order = new Pedido(payment, shipment, address, branch);
 	}
 
 	@Test
@@ -103,6 +100,9 @@ class PedidoTest {
 
 		// Se puede obtener el metodo de envio //
 		assertEquals(shipment, order.getShipment());
+		
+		// Se puede obtener el domicilio //
+		assertEquals(address, order.getAddress());
 
 		// Se puede obtener la sucursal //
 		assertEquals(branch, order.getBranch());
@@ -123,18 +123,18 @@ class PedidoTest {
 
 	@Test
 	void price() {
-		// Se pueden calcular el precio total del pedido //
+		// Se puede calcula el precio del pedido //
 		order.addItem(celular);
 		order.addItem(silla);
-		assertEquals(100000, order.getTotalPrice());
+		assertEquals(100000, order.getPrice());
 	}
 	
 	@Test
 	void weight() {
-		// Se pueden calcular el peso total del pedido //
+		// Se puede calcular el peso del pedido //
 		order.addItem(celular);
 		order.addItem(silla);
-		assertEquals(4195, order.getTotalWeight());
+		assertEquals(4195, order.getWeight());
 	}
 
 

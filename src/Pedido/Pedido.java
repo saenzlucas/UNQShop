@@ -8,22 +8,24 @@ import java.util.Map;
 
 import Catalogo.Item;
 import Envio.Envio;
+import Misc.Direccion;
 import Misc.Sucursal;
 import Notificaciones.Notificacion;
 import Pagos.Pago;
 
 public class Pedido {
 	private Estado state;
-	private Estado oldState;
 	private Envio shipment;
+	private Direccion address;
 	private Sucursal branch;
 	private Pago payment;
 	private Map<Item, Integer> items;
 	private List<Notificacion> notifications;
 
-	public Pedido(Pago payment, Envio shipment, Sucursal branch) {
+	public Pedido(Pago payment, Envio shipment, Direccion address, Sucursal branch) {
 		this.payment = payment;
 		this.shipment = shipment;
+		this.address = address;
 		this.branch = branch;
 		this.items = new HashMap<>();
 		this.state = new Borrador(this);
@@ -42,6 +44,10 @@ public class Pedido {
 		return shipment;
 	}
 
+	public Direccion getAddress() {
+		return address;
+	}
+
 	public Sucursal getBranch() {
 		return branch;
 	}
@@ -54,12 +60,12 @@ public class Pedido {
 		return notifications;
 	}
 
-	public double getTotalPrice() {
-		return items.entrySet().stream().mapToDouble(item -> item.getKey().getFinalPrice() * item.getValue()).sum();
+	public double getPrice() {
+		return items.entrySet().stream().mapToDouble(item -> (item.getKey().getFinalPrice() * item.getValue())).sum();
 	}
 	
-	public double getTotalWeight() {
-		return items.entrySet().stream().mapToInt(item -> item.getKey().getWeight() * item.getValue()).sum();
+	public double getWeight() {
+		return items.entrySet().stream().mapToInt(item -> (item.getKey().getWeight() * item.getValue())).sum();
 	}
 
 	public void addItem(Item item) {
@@ -79,18 +85,10 @@ public class Pedido {
 	}
 
 	public void updateState() {
-		oldState = state;
 		state = state.newState();
-		shotout();
 	}
 
 	public void cancel() {
-		oldState = state;
 		state = state.cancelled();
-		shotout();
-	}
-
-	public void shotout() {
-		notifications.forEach(notification -> notification.shoutout(this, oldState, state));
 	}
 }

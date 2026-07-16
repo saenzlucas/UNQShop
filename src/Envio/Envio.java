@@ -4,5 +4,5 @@ import Pedido.Pedido;
 
 public interface Envio {
 	void shippingTime (Pedido order);
-	float calculateCost ();
+	float calculateCost (Pedido order);
 }

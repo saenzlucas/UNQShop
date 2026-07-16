@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import Envio.Presencial;
+import Misc.Direccion;
 import Misc.Sucursal;
 import Notificaciones.Email;
 import Notificaciones.Factura;
@@ -38,7 +39,7 @@ class NotificacionesTest {
 		
 		BilleteraVirtualAPI api = mock(BilleteraVirtualAPI.class);
 		
-		order = new Pedido (new BilleteraVirtual(api), new Presencial (), new Sucursal (new HashMap<>()));
+		order = new Pedido (new BilleteraVirtual(api), new Presencial (), new Direccion(1875, 6100, "Av Mitre", "Wilde, Avellaneda"), new Sucursal (new HashMap<>()));
 	}
 
 	@Test
@@ -55,5 +56,4 @@ class NotificacionesTest {
 	void fidelizacion() {
 		fidelizacion.shoutout(order, new Borrador (order), new Cancelado(order));
 	}
-
 }

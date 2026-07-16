@@ -13,7 +13,7 @@ public class Presencial implements Envio {
 	}
 	
 	@Override
-	public float calculateCost () {
+	public float calculateCost (Pedido order) {
 		return 0;
 	}
 }

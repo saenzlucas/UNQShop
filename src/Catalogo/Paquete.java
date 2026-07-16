@@ -6,25 +6,31 @@ public class Paquete extends Item {
 
 private List<Item> items;
 	
-	public Paquete (String name, String description, double price, double discount, int weight, List<Item> items) {
-		super(name, description, price, discount, weight);
+	public Paquete (int sku, String name, String description, String category, double discount, List<Item> items) {
+		super(sku, name, description, category, discount);
 		this.items = items;
 	}
 	
 	@Override
-	public double getFinalPrice () {
-		double total = items.stream().mapToDouble(Item::getFinalPrice).sum();
-		return (total * (1-getDiscount()));
+	public boolean validateItem () {
+		boolean validSku = getSku() != 0;
+		boolean validName = getName() != null;
+		boolean validDinamics =  getDinamics().values().stream().allMatch(attribute -> attribute != null);
+		return items.stream().allMatch(Item::validateItem) && validSku && validName && validDinamics;
 	}
 	
 	@Override
-    public boolean validateProduct () {
-        boolean validItems = items.stream().allMatch(item -> item.validateProduct());                            
-        return validateItem() && validItems;
-    }
+	public int getWeight() {
+		return items.stream().mapToInt(Item::getWeight).sum();
+	}
 	
-	@Override 
-	public boolean isCategory (String category) {
-		return items.stream().anyMatch(item -> item.isCategory(category));
+	@Override
+	public double getPrice() {
+		return items.stream().mapToDouble(Item::getPrice).sum();
+	}
+	
+	@Override
+	public double getFinalPrice () {
+		return ((items.stream().mapToDouble(Item::getFinalPrice).sum()) * (1-getDiscount()));
 	}
 }
